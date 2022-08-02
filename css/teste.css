@@ -1,0 +1,146 @@
+@charset "UTF-8";
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    border: 2px solid red;
+    min-height: 100vh;
+
+}
+
+div.container {
+    width: 100%;
+    height: 120px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100vw;
+    min-height: 120px;
+    
+}
+
+.interface {
+    background-color: aqua;
+    display: flex;
+    width: 100%;
+    height: 90px;
+    max-width: 1600px;
+}
+
+.left{
+    width: 100vw;
+    height: 90px;   
+    max-width: 1600px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.center{
+    width: 100vw;
+    height: 90px;   
+    max-width: 1600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: yellow;
+}
+
+.right{
+    width: 100vw;
+    height: 90px;   
+    max-width: 1600px;
+    flex-direction:row;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.item{
+    background-color: purple;
+    width: 200px;
+    height: 60px;
+    margin: 10px;
+}
+
+#um{
+    background-color: green;
+    width: 200px;
+    height: 80px;
+}
+
+#dois, #tres, #quatro{
+    width: 120px;
+    height: 50px;
+}
+
+#cinco{
+    background-color: gold;
+    width: 250px;
+    height: 80px;
+}
+
+/* TESTE DO OVERFLOW */
+
+.container2{
+    width: 1000px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto 0 auto;
+    background-color: red;
+}
+
+section.teste{
+    width: 800px;
+    margin-top: 30px;
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+    height: auto;
+}
+
+input.funcoes{
+    width: 120px;
+    height: 120px;
+}
+
+input.funcoes[type=radio]:checked ~ p.oi{
+    margin-top: 10px;
+  max-height: 1800px;
+  opacity: 1;
+  width: 790px;
+  transition: all 1s ease-in-out;
+  position: relative;
+  left: -1px;
+  padding-left: 0;
+  margin-left: 0;
+  transform: translate(0,0);
+}
+
+p.oi{
+    margin-top: 0;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(0%);
+    font-size: 30pt;
+  }
+/* TESTE DO OVERFLOW */
+
+footer.rodape{
+    border: 2px solid black;
+    width: 100%;
+    height: 120px;
+    bottom: 0;
+
+}
+
+section.conteudo{
+    flex: 1;
+}
