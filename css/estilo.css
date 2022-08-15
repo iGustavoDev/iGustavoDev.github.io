@@ -572,3 +572,36 @@ footer#rodape img{
   left: 50%;
   transform: translateX(-50%);
 }
+
+/* Responsividade */
+
+@media screen and (max-width: 780px) { section#corpo {
+  width: auto;
+  margin: 15px;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  }
+}
+
+@media screen and (max-width: 780px) { aside#ultimasnoticias {
+  position: relative;
+  width: 320px;
+  margin: 0;
+  margin-bottom: 15px;
+  padding: 0;
+  } 
+}
+
+@media screen and (max-width: 780px) { div#mainpag {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  } 
+}
+
+@media screen and (max-width: 780px) { div#interface {
+  width: 100vw;
+  }
+}
+/* Responsividade */
