@@ -569,6 +569,12 @@ footer#rodape img{
 
 /* Responsividade */
 
+@media screen and (max-width: 780px) {
+  ::-webkit-scrollbar{
+    display: none;
+    }
+  }
+
 @media screen and (max-width: 780px) { section#corpo {
   width: auto;
   margin: 15px;
