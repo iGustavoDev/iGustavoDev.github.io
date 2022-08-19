@@ -578,6 +578,12 @@ footer#rodape img{
   }
 }
 
+@media screen and (max-width: 780px) { section#corpo p{
+  padding: 0;
+  margin: 0;
+  }
+}
+
 @media screen and (max-width: 780px) { aside#ultimasnoticias {
   position: relative;
   width: 320px;
