@@ -588,7 +588,7 @@ footer#rodape img{
   position: relative;
   width: 320px;
   margin: 0;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
   padding: 0;
   } 
 }
@@ -602,6 +602,53 @@ footer#rodape img{
 
 @media screen and (max-width: 780px) { div#interface {
   width: 100vw;
+  height: auto;
+  min-height: 230px;
+  flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 780px) { div.center ul{
+  flex-direction: column;
+  word-break: keep-all;
+  }
+}
+
+@media screen and (max-width: 780px) { nav#menu{
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  }
+}
+
+@media screen and (max-width: 780px) { div.left{
+ display: none;
+  } 
+}
+
+@media screen and (max-width: 780px) { div.left img#logo{
+   width: 50%;
+   height: 50%;
+   justify-content: center;
+  }
+ }
+
+@media screen and (max-width: 780px) { div.right{
+  justify-content: center;
+  align-items: center;
+  }
+}
+
+@media screen and (max-width: 780px) { div.right div.logomobile{
+  width: 30%;
+  height: 65%;
+  display:inline;
+  }
+}
+
+@media screen and (max-width: 780px) { div.right div.logomobile img#logo{
+  height: 80%;
+  width: 80%;
   }
 }
 /* Responsividade */
