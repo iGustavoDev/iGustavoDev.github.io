@@ -577,7 +577,7 @@ footer#rodape img{
 
 @media screen and (max-width: 780px) { section#corpo {
   width: auto;
-  margin: 15px;
+  margin: 5px;
   hyphens: auto;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -642,7 +642,7 @@ footer#rodape img{
 @media screen and (max-width: 780px) { div.right div.logomobile{
   width: 30%;
   height: 65%;
-  display:inline;
+  display: inline;
   }
 }
 
