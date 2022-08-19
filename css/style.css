@@ -509,3 +509,128 @@ div.easteregg:hover{
   opacity: 1;
   transition: all 3s ease-in-out;
 }
+
+/* Responsividade */
+
+@media screen and (max-width: 1060px) {
+  ::-webkit-scrollbar{
+    display: none;
+    }
+  }
+
+  @media screen and (max-width: 1060px) { 
+    section#corpo{
+     width: 100vw;
+     margin: auto;
+     justify-content: center;
+     align-items: center;
+   }
+ }
+
+@media screen and (max-width: 1060px) { 
+   div.container{
+    width: 100vw;
+    margin: 0px;
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    justify-content: center;
+    margin: 10px;
+  }
+} 
+
+@media screen and (max-width: 1060px) { 
+  p.marginzero {
+    width: auto;
+    margin: 5px;
+    hyphens: auto;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+}
+
+@media screen and (max-width: 1060px) { 
+  section#corpo p{
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 1060px) { 
+  aside#ultimasnoticias {
+    position: relative;
+    width: 320px;
+    margin: 0;
+    margin-bottom: 5px;
+    padding: 0;
+  } 
+}
+
+@media screen and (max-width: 1060px) { 
+  div#mainpag {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  } 
+}
+
+@media screen and (max-width: 1060px) { 
+  div#interface {
+    width: 100vw;
+    height: auto;
+    min-height: 230px;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 1060px) { 
+  div.center ul{
+    flex-direction: column;
+    word-break: keep-all;
+  }
+}
+
+@media screen and (max-width: 1060px) { 
+  nav#menu{
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 1060px) { 
+  div.left{
+    display: none;
+  } 
+}
+
+@media screen and (max-width: 1060px) { 
+  div.left img#logo{
+   width: 50%;
+   height: 50%;
+   justify-content: center;
+  }
+ }
+
+@media screen and (max-width: 1060px) { 
+  div.right{
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 1060px) {
+  div.right div.logomobile{
+    width: 30%;
+    height: 65%;
+    display:inline;
+  }
+}
+
+@media screen and (max-width: 1060px) 
+  { div.right div.logomobile img#logo{
+    height: 80%;
+    width: 80%;
+  }
+}
+/* Responsividade */
