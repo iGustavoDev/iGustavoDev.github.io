@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: sans-serif;
+            height: 100vh;
+        }
+
+        .title {
+            color: #0b5ed7;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        th {
+            min-width: 200px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condições</title>
+</head>
+
+<body>
+
+    <div class="container h-100">
+        <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-sm-5">
+                <img class="img-fluid"
+                    src="https://img.freepik.com/vetores-gratis/tarefa-explicando-do-professor-teste-de-aprovacao-do-aluno-desenho-de-carrapatos-na-ilustracao-vetorial-plana-de-matriz-educacao-aula-aula_74855-8599.jpg?w=2000"
+                    alt="">
+            </div>
+            <div class="col-sm-7 d-flex flex-column justify-content-center align-items-center">
+                <h1 class="title">Sistema de aprovação de alunos</h1>
+
+                <div id="tela1" class="d-flex flex-column">
+                    <h2>Informe o nome e idade do aluno:</h2>
+                    <input class="form-control mb-2" type="text" id="nome" placeholder="Nome:" maxlength="35">
+                    <input class="form-control mb-2" type="number" id="idade" placeholder="Idade:">
+                    <button class="btn btn-primary mt-4" id="enviar">Enviar</button>
+                </div>
+
+                <div id="tela2" class="d-none flex-column">
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <th>Aluno</th>
+                            <th>Idade</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="nomeAluno">gsuta</span></td>
+                                <td><span id="idadeAluno">20</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="d-flex flex-column">
+                        <label for="nota1">Nota primeiro trimestre</label>
+                        <input value="" class="inputNotas" id="nota1" type="number" min="0" max="10">
+                        <label for="nota2">Nota segundo trimestre</label>
+                        <input class="inputNotas" id="nota2" type="number" min="0" max="10">
+                        <label for="nota3">Nota terceiro trimestre</label>
+                        <input class="inputNotas" id="nota3" type="number" min="0" max="10">
+                        <label for="nota4">Nota quarto trimestre</label>
+                        <input class="inputNotas" id="nota4" type="number" min="0" max="10"><br>
+                        <button id="botaoEnviarNotas" class="btn btn-info">Enviar notas</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tela3" class="d-none flex-column">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <th>Aluno</th>
+                        <th>Idade</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="nomeAluno">gsuta</span></td>
+                            <td><span id="idadeAluno">20</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <th colspan="2">Notas</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nota primeiro semestre: </td>
+                            <td><span class="notas"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Nota segundo semestre: </td>
+                            <td><span class="notas"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Nota terceiro semestre: </td>
+                            <td><span class="notas"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Nota quarto semestre: </td>
+                            <td><span class="notas"></span></td>
+                        </tr>
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <th colspan="2">Resultado</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Média</td>
+                                    <td><span id="media"></span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><span id="resultado"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </tbody>
+                </table>
+
+                <div class="mt-5 mb-5">
+                    <button id="voltar" class="btn btn-success">Voltar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var botaoEnviar = document.getElementById('enviar');
+        botaoEnviar.addEventListener('click', function () {
+            var nomeAluno = String(document.getElementById('nome').value);
+            var idadeAluno = Number(document.getElementById('idade').value);
+            if (nomeAluno == "" || idadeAluno == 0) {
+                alert('Preencha todos os campos mongol');
+            } else if (idadeAluno > 150) {
+                alert('O aluno é a porra de um monge agora?');
+            } else {
+                var dadosColetados = coletaDados();
+                atualizaDados(dadosColetados);
+                adicionarRemoverClasse(0);
+                adicionarRemoverClasse(1);
+            }
+        });
+
+        var botaoEnviarNotas = document.getElementById('botaoEnviarNotas');
+        botaoEnviarNotas.addEventListener('click', function () {
+            var notas = [
+                (document.getElementById('nota1').value),
+                (document.getElementById('nota2').value),
+                (document.getElementById('nota3').value),
+                (document.getElementById('nota4').value)
+            ];
+            var maxNotas = [
+                Number(document.getElementById('nota1').max),
+                Number(document.getElementById('nota2').max),
+                Number(document.getElementById('nota3').max),
+                Number(document.getElementById('nota4').max)
+            ]
+            var i = 0;
+            while (i < notas.length) {
+                if ((notas[i]) === "") {
+                    alert('Preencha todas as notas do aluno');
+                    break;
+                }
+
+                if (notas[i] > maxNotas[i]) {
+                    alert('A nota deve ser menor ou igual a 10. ')
+                    break;
+                }
+
+                i++;
+            }
+
+            if (i === notas.length) {
+                var dadosColetados = coletaDados();
+                calcularMedia();
+                atualizaDados(dadosColetados);
+                adicionarRemoverClasse(1);
+                adicionarRemoverClasse(2);
+
+            }
+        })
+
+        function coletaDados() {
+            // coleta os dados dos inputs 
+            var dados = [
+                String(document.getElementById('nome').value),
+                Number(document.getElementById('idade').value),
+                Number(document.getElementById('nota1').value),
+                Number(document.getElementById('nota2').value),
+                Number(document.getElementById('nota3').value),
+                Number(document.getElementById('nota4').value),
+            ];
+
+            return dados;
+        }
+
+        function atualizaDados(dadosAtualizados) {
+            // nome 
+            var nomeAluno = document.getElementsByClassName('nomeAluno');
+            for (var i = 0; i < nomeAluno.length; i++) {
+                nomeAluno[i].innerHTML = dadosAtualizados[0];
+            }
+
+            // idade 
+            var idadeAluno = document.getElementById('idadeAluno');
+            idadeAluno.innerHTML = dadosAtualizados[1];
+
+            // notas 
+            var notas = document.getElementsByClassName('notas');
+            var contNotas = 2;
+            for (var i = 0; i < notas.length; i++) {
+                notas[i].innerHTML = dadosAtualizados[contNotas++];
+            }
+
+            // media 
+            valorMedia = calcularMedia();
+            var media = document.getElementById('media');
+            media.innerHTML = valorMedia;
+
+            // aprovacao 
+            aprovadoReprovado = calcularAprovacao();
+            var resultadoAprovadoReprovado = document.getElementById('resultado');
+            if (aprovadoReprovado ==='Aprovado') {
+                resultadoAprovadoReprovado.style.color = '#04aa6d';
+                resultadoAprovadoReprovado.innerHTML = aprovadoReprovado;
+            }else if (aprovadoReprovado === 'Reprovado'){
+                resultadoAprovadoReprovado.style.color = '#FF0000';
+                resultadoAprovadoReprovado.innerHTML = aprovadoReprovado;
+            }else{
+                resultadoAprovadoReprovado.innerHTML = 'Houve algum erro no código.';
+            }
+
+        }
+
+        function adicionarRemoverClasse(numeroTela) {
+            var tela = [
+                document.getElementById("tela1"), 
+                document.getElementById("tela2"), 
+                document.getElementById("tela3")
+            ];
+            if (tela[numeroTela].classList.contains('d-flex')) {
+                tela[numeroTela].classList.add("d-none");
+                tela[numeroTela].classList.remove("d-flex");
+            } else if (tela[numeroTela].classList.contains('d-none')) {
+                tela[numeroTela].classList.add("d-flex");
+                tela[numeroTela].classList.remove("d-none");
+            }
+        }
+
+        function calcularMedia() {
+            var somaNotas = 0;
+            var notas = [
+                Number(document.getElementById('nota1').value),
+                Number(document.getElementById('nota2').value),
+                Number(document.getElementById('nota3').value),
+                Number(document.getElementById('nota4').value)
+            ];
+            for (var i = 0; i < notas.length; i++) {
+                somaNotas += notas[i];
+            }
+            var valorMedia = somaNotas / notas.length;
+            return valorMedia;
+        }
+
+        function calcularAprovacao() {
+            var aprovadoReprovado;
+            if (valorMedia < 7) {
+                aprovadoReprovado = 'Reprovado';
+            } else {
+                aprovadoReprovado = 'Aprovado';
+            }
+
+            return aprovadoReprovado;
+        }
+
+        var botaoVoltar = document.getElementById('voltar');
+        botaoVoltar.addEventListener('click', function () {
+            location.reload();
+        })
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
