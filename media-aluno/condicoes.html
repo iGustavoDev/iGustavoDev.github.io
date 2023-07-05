@@ -141,7 +141,9 @@
                 alert('Preencha todos os campos mongol');
             } else if (idadeAluno > 150) {
                 alert('O aluno é a porra de um monge agora?');
-            } else {
+            } else if(idadeAluno < 0){
+                alert('tu é tongo ou ta se fazendo colocando idade negativa?')
+            }else {
                 var dadosColetados = coletaDados();
                 atualizaDados(dadosColetados);
                 adicionarRemoverClasse(0);
@@ -170,8 +172,8 @@
                     break;
                 }
 
-                if (notas[i] > maxNotas[i]) {
-                    alert('A nota deve ser menor ou igual a 10. ')
+                if (notas[i] > maxNotas[i] || notas[i] < 0) {
+                    alert('A nota deve ser entre 0 e 10.')
                     break;
                 }
 
