@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMC</title>
+
+    <style>
+        .segura-bloco, .resultado {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        body,
+        .segura-bloco, .resultado {
+            height: 100vh;
+        }
+
+        body{
+            background-image: url('https://www.aubicon.com.br/wp-content/uploads/2022/06/4-dicas-de-como-organizar-o-layout-da-sua-academia_blog_1200x800px_100_img2.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* background-attachment: fixed; */
+        }
+
+        .inputs {
+            border: 1px solid #eee;
+            padding: 25px;
+            border-radius: 10px;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .title {
+            text-align: center;
+            color: #028100;;
+        }
+
+        .bloco2 {
+            height: 100%;
+            align-items: center;
+        }
+
+        #bloco {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 30px;
+            background: #fff;
+        }
+
+        .form {
+            background-color: #fff;
+            display: block;
+            padding: 1rem;
+            max-width: 350px;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-title {
+            font-size: 1.25rem;
+            line-height: 1.75rem;
+            text-align: center;
+            color: #000;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-container input,
+        .form button {
+            outline: none;
+            border: 1px solid #e5e7eb;
+            margin: 8px 0;
+        }
+
+        .input-container input {
+            background-color: #fff;
+            padding: 1rem;
+            padding-right: 3rem;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .input-container span {
+            display: grid;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            place-content: center;
+        }
+
+        .input-container span svg {
+            color: #9CA3AF;
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .submit {
+            display: block;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+            background-color: #98d900;
+            color: #ffffff;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            font-weight: 500;
+            width: 100%;
+            border-radius: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .submit:hover{
+            background-color: #028100;
+            color: #fff;
+        }
+
+        .signup-link {
+            color: #6B7280;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            text-align: center;
+        }
+
+        .signup-link a {
+            text-decoration: underline;
+        }
+
+        .background-shadow{
+            background: rgba(0, 0, 0, 0.3);
+            width: 100%;
+        }
+
+        .hideoff{
+            display: none;
+        }
+
+        .hide{
+            display: flex;
+        }
+
+        .bloco-result{
+            width: 100%;
+            max-width: 500px;
+            height: 100%;
+            max-height: 500px;
+        }
+
+        .invalidValue::placeholder{
+            color: red;
+        }
+
+
+        @font-face {
+            font-family: Font Awesome;
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/fonts/FontAwesome.otf');
+        }
+        input::placeholder, .invalidValue::placeholder{
+            font-family: Font Awesome;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="background-shadow">
+        <div class="container">
+            <div id="bloco-dados" class="segura-bloco hide">
+                <div id="bloco" class="row w-100 shadow">
+                    <div class="col-sm-5 d-none d-sm-block">
+                        <div class="d-flex align-items-center justify-content-center h-100">
+                            <img class="img-fluid"
+                                src="https://i.pinimg.com/originals/2b/2c/27/2b2c27740f382bf0f8c5c4ca7edc80af.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <h1 class="title">Cálculo IMC</h1>
+                        <div class="bloco2 d-flex justify-content-center align-items-center flex-column">
+                            <div class="form">
+                                <p class="form-title">Insira seu <b>nome</b>, <b>altura</b> e <b>peso</b>:</p>
+                                <div class="input-container">
+                                    <input class="form-control" id="nome" required="required" placeholder="Nome" type="text">
+                                    <span>
+                                        <i class="fa fa-address-card" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="input-container">
+                                    <input class="form-control" id="altura" required="required" placeholder="Altura (em centímetros)" type="number">
+                                    <span>
+                                        <i class="fa-solid fa-person"></i>
+                                    </span>
+                                </div>
+                                <div class="input-container">
+                                    <input class="form-control" id="peso" required="required" placeholder="Peso (em quilo)" type="number">
+                                    <span>
+                                        <i class="fa-solid fa-weight-scale"></i>
+                                    </span>
+                                </div>
+                                <button id="btn-envia-dados" class="submit btn" type="submit">
+                                    Calcular
+                                </button>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+            </div>
+            <div id="bloco-resultado" class="resultado hideoff">
+                <div id="bloco" class="bloco-result d-flex flex-column">
+                    <h1 class="title">Resultado</h1>
+                    <div>
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <th>Nome:</th>
+                                <th>Peso:</th>
+                                <th>Altura:</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span id="resultadoNome"></span></td>
+                                    <td><span id="resultadoPeso"></span><span> KG</span></td>
+                                    <td><span id="resultadoAltura"></span><span> Metros</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <th colspan="2">Resultado:</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 50%;"><span><b>Valor IMC:</b></span></td>
+                                    <td><span id="valorImc"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span><b>Classificação:</b></span></td>
+                                    <td><span id="resultado"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><span><b>Peso ideal:</b></span></td>
+                                    <td><div>Entre <b><span id="pesoMinimo"></span> KG</b> e <b><span id="pesoMaximo"></span> KG</b></div></td>
+                                </tr>
+        
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- <div class="resumo d-flex align-items-center justify-content-center h-100">
+                        <h4 class="shadow" id="resumoFinal" style="font-size: 17px; font-weight: normal; padding: 20px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et aspernatur ipsam ad ab, reiciendis nam iste cumque nihil in fugiat dolores repudiandae quaerat, officiis incidunt est accusamus voluptatem. Ipsam, consectetur.</h4>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        dados = [];
+
+        var btnEnviaDados = document.getElementById('btn-envia-dados');
+        btnEnviaDados.addEventListener('click', function () {
+            var verificador = [
+                document.getElementById('nome').value,
+            document.getElementById('altura').value,
+            document.getElementById('peso').value,
+            document.getElementById('nome'),
+            document.getElementById('altura'),
+            document.getElementById('peso'),
+            ]
+            
+            if (verificador[0] === ''){
+                verificador[3].setAttribute('placeholder', 'Preencha este campo.');
+                verificador[3].classList.add('invalidValue');
+                verificador[3].value = '';
+                return;
+            }else if (verificador[1] === ''){
+                verificador[4].setAttribute('placeholder', 'Preencha este campo.');
+                verificador[4].classList.add('invalidValue');
+                verificador[4].value = '';
+                return;
+            }else if (verificador[3] === ''){
+                verificador[5].setAttribute('placeholder', 'Preencha este campo.');
+                verificador[5].classList.add('invalidValue');
+                verificador[5].value = '';
+                return;
+            }else{
+                
+                var dadosColetados = coletaDados();
+                var valorImc = calculaImc(dadosColetados);
+                var calculaGrauImc = grauImc(valorImc);
+                hideElement(0);
+                hideElement(1);
+            }
+        })
+
+        function coletaDados(){
+            var dados = [
+                String(document.getElementById('nome').value),
+                Number(document.getElementById('altura').value),
+                Number(document.getElementById('peso').value),
+                (document.getElementById('nome')),
+                (document.getElementById('altura')),
+                (document.getElementById('peso')),
+            ];
+
+            if (dados[1] < 1 || dados[1] > 250 ){
+                dados[4].setAttribute('placeholder', 'Valor inválido.');
+                dados[4].classList.add('invalidValue');
+                dados[4].value = '';
+                return;
+            }
+            if (dados[2] < 1 || dados[2] > 300){
+                dados[5].setAttribute('placeholder', 'Valor inválido.');
+                dados[5].classList.add('invalidValue');
+                dados[5].value = '';
+                return;
+            }
+
+            dados[1] = dados[1] / 100;
+
+            return dados;
+        }
+        
+        function calculaImc(valueImc){
+            var imc = valueImc[2] / Math.pow(valueImc[1], 2);
+            var resultImc = document.getElementById('valorImc');
+            var imcFormated = imc.toFixed(2);
+            resultImc.innerHTML = imcFormated;
+            
+            return imc;
+        }
+        
+        function grauImc(valorImc){
+            var resultadoNome = document.getElementById('resultadoNome');
+            var resultadoAltura = document.getElementById('resultadoAltura');
+            var resultadoPeso = document.getElementById('resultadoPeso');
+            var resultadoFinal = document.getElementById('resultado');
+            var resumoFinal = document.getElementById('resumoFinal');
+            var pesoMinimo = document.getElementById('pesoMinimo');
+            var pesoMaximo = document.getElementById('pesoMaximo');
+            const recebeDados = coletaDados();
+            var classificacao;
+            var pesoIdealMinimo;
+            var pesoIdealMaximo;
+            
+            var pesoIdealMinimo = (18.50 * Math.pow(recebeDados[1], 2)).toFixed(0);
+            var pesoIdealMaximo = (24.99 * Math.pow(recebeDados[1], 2)).toFixed(0);
+
+            resultadoNome.innerHTML = recebeDados[0];
+            resultadoAltura.innerHTML = recebeDados[1];
+            resultadoPeso.innerHTML = recebeDados[2];
+            pesoMinimo.innerHTML = pesoIdealMinimo;
+            pesoMaximo.innerHTML = pesoIdealMaximo;
+
+            
+            if (valorImc < 16 && valorImc > 0){
+                resultadoFinal.innerHTML = '<b>Peso baixo muito grave.</b>';
+                var classificacao = '<b>Peso baixo muito grave.</b>';
+            }
+
+            if (valorImc >= 16 && valorImc <= 16.99){
+                resultadoFinal.innerHTML = '<b>Peso baixo grave.</b>';
+                var classificacao = '<b>Peso baixo grave.</b>';
+            }
+            
+            if (valorImc >= 17 && valorImc <= 18.49){
+                resultadoFinal.innerHTML = '<b>Peso baixo.</b>';
+                var classificacao = '<b>Peso baixo.</b>';
+            }
+            
+            if (valorImc >= 18.50 && valorImc <= 24.99){
+                resultadoFinal.innerHTML = '<b>Peso normal.</b>';
+                var classificacao = '<b>Peso normal.</b>';
+            }
+            
+            if (valorImc >= 25 && valorImc <= 29.99){
+                resultadoFinal.innerHTML = '<b>Sobrepeso.</b>';
+                var classificacao = '<b>Sobrepeso.</b>';
+            }
+            
+            if (valorImc >= 30 && valorImc <= 34.99){
+                resultadoFinal.innerHTML = '<b>Obesidade grau I.</b>';
+                var classificacao = '<b>Obesidade grau I.</b>';
+            }
+            
+            if (valorImc >= 35 && valorImc <= 39.99){
+                resultadoFinal.innerHTML = '<b>Obesidade grau II.</b>';
+                var classificacao = '<b>Obesidade grau II.</b>';
+            }
+            
+            if (valorImc >= 40){
+                resultadoFinal.innerHTML = '<b>Obesidade grau III.</b>';
+                var classificacao = '<b>Obesidade grau III.</b>';
+            }
+
+            // var massaCorporal = valorImc;
+            // var massaCorporal = massaCorporal.toFixed(2);
+            // resumoFinal.innerHTML = `<b>${recebeDados[0]}</b> possui índice de massa corporal igual a <b>${massaCorporal}</b> sendo classificado como: ${classificacao} <br><br> Seu peso ideal está entre <b>${pesoIdealMinimo} KG</b> e <b>${pesoIdealMaximo} KG</b>`;
+        }
+
+        function hideElement(numeroTela){
+            var tela = [
+                document.getElementById("bloco-dados"), 
+                document.getElementById("bloco-resultado")
+            ];
+            if (tela[numeroTela].classList.contains('hide')) {
+                tela[numeroTela].classList.add("hideoff");
+                tela[numeroTela].classList.remove("hide");
+            } else if (tela[numeroTela].classList.contains('hideoff')) {
+                tela[numeroTela].classList.add("hide");
+                tela[numeroTela].classList.remove("hideoff");
+            }
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
