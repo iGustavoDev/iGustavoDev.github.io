@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redimensionamento proporcional</title>
+    <!-- bootstrap 5  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <!-- bootstrap 5  -->
+</head>
+
+<body class="vh-100">
+    <div class="container h-100">
+
+        <div class="container-inputs w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+            <div class="row shadow p-5">
+                <h1 class="text-center pb-5">Redimensionador Proporcional</h1>
+                <div class="col-lg-6">
+                    <label for="current-width" class="form-label text-primary">Largura atual:</label>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" id="current-width">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label for="new-width" class="form-label text-success">Largura nova:</label>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" id="new-width">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label for="current-height" class="form-label text-primary">Altura atual:</label>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" id="current-height">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <label for="new-height" class="form-label text-success">Altura nova:</label>
+                    <div class="input-group mb-3">
+                        <input type="number" class="form-control" id="new-height">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var currentWidth = document.getElementById('current-width');
+        var currentHeight = document.getElementById('current-height');
+        var newWidth = document.getElementById('new-width');
+        var newHeight = document.getElementById('new-height');
+        const resultadoElement = document.getElementById("resultado");
+        var bloqInputForNewWidth = false;
+        var bloqInputForNewHeight = false;
+        var resultadoRegraX = 0;
+        var calculoLargura = 0;
+
+        currentWidth.addEventListener("input", atualizarResultado);
+        currentHeight.addEventListener("input", atualizarResultado);
+        newWidth.addEventListener("input", atualizarResultado);
+        newHeight.addEventListener("input", atualizarResultado)
+        newWidth.addEventListener('click', removerValoresAltura);
+        newWidth.addEventListener('select', removerValoresAltura);
+        newHeight.addEventListener('click', removerValoresLargura);
+        newHeight.addEventListener('select', removerValoresLargura);
+
+        function removerValoresAltura() {
+            newHeight.value = '';
+            bloqInputForNewWidth = true;
+            bloqInputForNewHeight = false;
+        }
+
+        function removerValoresLargura() {
+            newWidth.value = '';
+            bloqInputForNewHeight = true;
+            bloqInputForNewWidth = false;
+        }
+
+        function atualizarResultado() {
+            var valueCurrentWidth = currentWidth.value;
+            var valueCurrentHeight = currentHeight.value;
+            var valueNewWidth = newWidth.value;
+            var valueNewHeight = newHeight.value;
+            redimensionarValores(valueCurrentWidth, valueCurrentHeight, valueNewWidth, valueNewHeight);
+
+        }
+
+        function redimensionarValores(larguraAtual, alturaAtual, larguraNova, alturaNova) {
+
+            if (larguraAtual != '' && larguraAtual != 0 && alturaAtual != '' && alturaAtual != 0) {
+                // preenchendo a largura para descobrir a altura 
+                if (larguraNova != '' && bloqInputForNewHeight == false) {
+                    calculoLargura = alturaAtual * larguraNova;
+                    resultadoRegraX = calculoLargura / larguraAtual;
+                    newHeight.value = resultadoRegraX;
+                    bloqInputForNewWidth = true;
+                }
+
+                // preenchendo a altura para descobrir a largura 
+                if (alturaNova != '' && bloqInputForNewWidth == false) {
+                    calculoLargura = larguraAtual * alturaNova;
+                    resultadoRegraX = calculoLargura / alturaAtual;
+                    newWidth.value = resultadoRegraX;
+                    bloqInputForNewHeight = true;
+                }
+            }
+
+        }
+
+    </script>
+</body>
+
+</html>
