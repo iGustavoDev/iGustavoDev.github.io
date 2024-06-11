@@ -30,60 +30,93 @@
             <label for="svgInput" class="form-label">Paste your SVG code here:</label>
             <textarea id="svgInput" class="form-control" placeholder="Paste your SVG code here..."></textarea>
         </div>
-        <button class="btn btn-primary mb-4" onclick="adjustSvgViewBox()">Adjust ViewBox</button>
+        <button id="adjustButton" class="btn btn-primary mb-4" onclick="adjustSvgViewBox()">Adjust ViewBox</button>
         <h2>Adjusted SVG:</h2>
         <div id="result" class="border p-3 mb-3"></div>
         <h2>Adjusted SVG Code:</h2>
         <pre id="svgCode" class="position-relative"></pre>
-        <button class="btn btn-secondary btn-copy position-absolute end-0 top-0 mt-2 me-2" onclick="copyToClipboard()">Copy</button>
+        <button id="copyButton" class="btn btn-secondary btn-copy position-absolute end-0 top-0 mt-2 me-2" onclick="copyToClipboard()">Copy</button>
     </div>
 
     <script>
-        function adjustSvgViewBox() {
-            const svgInput = document.getElementById('svgInput').value;
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(svgInput, 'image/svg+xml');
-            const svg = doc.querySelector('svg');
-
-            if (!svg) {
-                alert('Invalid SVG input');
-                return;
-            }
-
-            const paths = svg.querySelectorAll('path');
-            if (paths.length === 0) {
-                alert('SVG does not contain any path elements');
-                return;
-            }
-
-            let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-
-            paths.forEach(path => {
-                const length = path.getTotalLength();
-
-                for (let i = 0; i <= length; i++) {
-                    const point = path.getPointAtLength(i);
-                    if (point.x < minX) minX = point.x;
-                    if (point.y < minY) minY = point.y;
-                    if (point.x > maxX) maxX = point.x;
-                    if (point.y > maxY) maxY = point.y;
+        function removeGTags(svg) {
+            const gTags = svg.querySelectorAll('g');
+            gTags.forEach(g => {
+                const parent = g.parentNode;
+                while (g.firstChild) {
+                    parent.insertBefore(g.firstChild, g);
                 }
+                parent.removeChild(g);
             });
+        }
 
-            const viewBox = `${minX} ${minY} ${maxX - minX} ${maxY - minY}`;
-            svg.setAttribute('viewBox', viewBox);
+        function adjustSvgViewBox() {
+            document.getElementById('adjustButton').textContent = 'Loading...';
+            document.getElementById('adjustButton').disabled = true;
 
-            const serializer = new XMLSerializer();
-            const adjustedSvg = serializer.serializeToString(svg);
+            setTimeout(() => {
+                const svgInput = document.getElementById('svgInput').value;
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(svgInput, 'image/svg+xml');
+                const svg = doc.querySelector('svg');
 
-            document.getElementById('result').innerHTML = adjustedSvg;
-            document.getElementById('svgCode').textContent = adjustedSvg;
+                if (!svg) {
+                    alert('Invalid SVG input');
+                    resetButton();
+                    return;
+                }
+
+                removeGTags(svg);
+
+                const paths = svg.querySelectorAll('path');
+                if (paths.length === 0) {
+                    alert('SVG does not contain any path elements');
+                    resetButton();
+                    return;
+                }
+
+                let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+                paths.forEach(path => {
+                    const length = path.getTotalLength();
+
+                    for (let i = 0; i <= length; i++) {
+                        const point = path.getPointAtLength(i);
+                        if (point.x < minX) minX = point.x;
+                        if (point.y < minY) minY = point.y;
+                        if (point.x > maxX) maxX = point.x;
+                        if (point.y > maxY) maxY = point.y;
+                    }
+                });
+
+                const viewBox = `${minX} ${minY} ${maxX - minX} ${maxY - minY}`;
+                svg.setAttribute('viewBox', viewBox);
+
+                const serializer = new XMLSerializer();
+                let adjustedSvg = serializer.serializeToString(svg);
+
+                // Remove unnecessary white spaces
+                adjustedSvg = adjustedSvg.replace(/\s+/g, ' ').trim();
+
+                document.getElementById('result').innerHTML = adjustedSvg;
+                document.getElementById('svgCode').textContent = adjustedSvg;
+
+                resetButton();
+            }, 500);
+        }
+
+        function resetButton() {
+            document.getElementById('adjustButton').textContent = 'Adjust ViewBox';
+            document.getElementById('adjustButton').disabled = false;
         }
 
         function copyToClipboard() {
             const svgCode = document.getElementById('svgCode').textContent;
             navigator.clipboard.writeText(svgCode).then(() => {
-                alert('SVG code copied to clipboard');
+                document.getElementById('copyButton').textContent = 'Copied';
+                setTimeout(() => {
+                    document.getElementById('copyButton').textContent = 'Copy';
+                }, 1500);
             }).catch(err => {
                 console.error('Failed to copy text: ', err);
             });
