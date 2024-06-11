@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG ViewBox Adjuster</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .btn-copy {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">SVG ViewBox Adjuster</h1>
+        <div class="mb-3">
+            <label for="svgInput" class="form-label">Paste your SVG code here:</label>
+            <textarea id="svgInput" class="form-control" placeholder="Paste your SVG code here..."></textarea>
+        </div>
+        <button class="btn btn-primary mb-4" onclick="adjustSvgViewBox()">Adjust ViewBox</button>
+        <h2>Adjusted SVG:</h2>
+        <div id="result" class="border p-3 mb-3"></div>
+        <h2>Adjusted SVG Code:</h2>
+        <pre id="svgCode" class="position-relative"></pre>
+        <button class="btn btn-secondary btn-copy position-absolute end-0 top-0 mt-2 me-2" onclick="copyToClipboard()">Copy</button>
+    </div>
+
+    <script>
+        function adjustSvgViewBox() {
+            const svgInput = document.getElementById('svgInput').value;
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(svgInput, 'image/svg+xml');
+            const svg = doc.querySelector('svg');
+
+            if (!svg) {
+                alert('Invalid SVG input');
+                return;
+            }
+
+            const paths = svg.querySelectorAll('path');
+            if (paths.length === 0) {
+                alert('SVG does not contain any path elements');
+                return;
+            }
+
+            let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+            paths.forEach(path => {
+                const length = path.getTotalLength();
+
+                for (let i = 0; i <= length; i++) {
+                    const point = path.getPointAtLength(i);
+                    if (point.x < minX) minX = point.x;
+                    if (point.y < minY) minY = point.y;
+                    if (point.x > maxX) maxX = point.x;
+                    if (point.y > maxY) maxY = point.y;
+                }
+            });
+
+            const viewBox = `${minX} ${minY} ${maxX - minX} ${maxY - minY}`;
+            svg.setAttribute('viewBox', viewBox);
+
+            const serializer = new XMLSerializer();
+            const adjustedSvg = serializer.serializeToString(svg);
+
+            document.getElementById('result').innerHTML = adjustedSvg;
+            document.getElementById('svgCode').textContent = adjustedSvg;
+        }
+
+        function copyToClipboard() {
+            const svgCode = document.getElementById('svgCode').textContent;
+            navigator.clipboard.writeText(svgCode).then(() => {
+                alert('SVG code copied to clipboard');
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
